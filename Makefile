@@ -1,43 +1,55 @@
 NAME = fdf
 
-SRCS_PATH = ./src/
-SRCS_FILES = fdf.c
-SRCS = $(addprefix $(SRCS_PATH), $(SRCS_FILES))
+SRC_DIR = ./src/
+SRC_FILES = fdf.c
+SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
-OBJECTS_PATH = ./obj/
-OBJECTS_FILES = $(SRCS_FILES:.c = .o)
-OBJECTS = $(addprefix $(OBJECTS_PATH), $(OBJECTS_FILES))
+INC_DIR = ./includes/
+INCLUDES = -I$(INC_DIR) $(FT_INC) $(MLX_INC)
+
+OBJ_DIR = ./obj/
+OBJ_FILES = $(SRC_FILES:.c=.o)
+OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-INCLUDES = -I./includes/ -I$(LIBFTDIR)
-HEADER = ./includes/fdf.h
+MLX		= ./minilibx/
+MLX_LIB	= $(addprefix $(MLX),libmlx.a)
+MLX_INC	= -I $(MLX)
+MLX_LNK	= -Lminilibx -lmlx -framework OpenGL -framework AppKit
 
-LIBFTDIR = ./libft/
-LIBFTNAME = libft.a
-LIB = $(LIBFTDIR)$(LIBFTNAME)
+FT		= ./libft/
+FT_LIB	= $(addprefix $(FT),libft.a)
+FT_INC	= -Ilibft
+FT_LNK	= -Llibft -lft
 
-MLX = -L/usr/local/lib -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
+all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
 
+obj:
+	@mkdir -p $(OBJ_DIR) &> /dev/null
 
-all: $(NAME)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ #&> /dev/null
 
-$(NAME): $(OBJECTS) $(HEADER)
-	if [[ ! -e /libft/libft.a ]];
-		@make -C $(LIBFTDIR) &> /dev/null
-	fi
-	@$(CC) $(OBJECTS) $(MLX) $(LIB) -o $(NAME) &> /dev/null
+$(FT_LIB):
+	@if [[ ! -e $(FT_LIB) ]]; then make -C $(FT); fi
 
-$(OBJECTS_PATH)%.o: $(SRCS_PATH)%.c
-	@mkdir $(OBJECTS_PATH) &> /dev/null
-	@$(CC) $(INCLUDES) -c $< -o $@ &> /dev/null
+$(MLX_LIB):
+	@if [[ ! -e $(MLX_LIB) ]]; then make -C $(MLX); fi
+
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME) #&> /dev/null
 
 clean:
-	@make -C $(LIB_PATH) clean &> /dev/null
-	@rm -rfv $(OBJECTS) &> /dev/null
+	@make -C $(FT) clean #&> /dev/null
+	@rm -rfv $(OBJS) #&> /dev/null
 
 fclean: clean
-	@make -C $(LIB_PATH) fclean &> /dev/null
-	@rm -rfv $(NAME) &> /dev/null
+	@make -C $(FT) fclean #&> /dev/null
+	@make -C $(MLX) clean
+	@rm -rfv $(NAME) #&> /dev/null
 
 re: fclean all
+
+.PHONY: all $(NAME) clean fclean re
