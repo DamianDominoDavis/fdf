@@ -30,25 +30,25 @@ obj:
 	@mkdir -p $(OBJ_DIR) &> /dev/null
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ #&> /dev/null
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ &> /dev/null
 
 $(FT_LIB):
-	@if [[ ! -e $(FT_LIB) ]]; then make -C $(FT); fi
+	@if [[ ! -e $(FT_LIB) ]]; then make -C $(FT); fi &> /dev/null
 
 $(MLX_LIB):
-	@if [[ ! -e $(MLX_LIB) ]]; then make -C $(MLX); fi
+	@if [[ ! -e $(MLX_LIB) ]]; then make -C $(MLX); fi &> /dev/null
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME) #&> /dev/null
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME) &> /dev/null
 
 clean:
-	@make -C $(FT) clean #&> /dev/null
-	@rm -rfv $(OBJS) #&> /dev/null
+	@make -C $(FT) clean &> /dev/null
+	@rm -rfv $(OBJS) &> /dev/null
 
 fclean: clean
-	@make -C $(FT) fclean #&> /dev/null
-	@make -C $(MLX) clean
-	@rm -rfv $(NAME) #&> /dev/null
+	@make -C $(FT) fclean &> /dev/null
+	@make -C $(MLX) clean &> /dev/null
+	@rm -rf $(NAME) &> /dev/null
 
 re: fclean all
 
