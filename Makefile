@@ -33,7 +33,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ &> /dev/null
 
 $(FT_LIB):
-	@if [[ ! -e $(FT_LIB) ]]; then make -C $(FT); fi &> /dev/null
+	@if [[ ! -e $(FT_LIB) ]]; then make -C $(FT); ranlib $(FT_LIB); fi &> /dev/null
 
 $(MLX_LIB):
 	@if [[ ! -e $(MLX_LIB) ]]; then make -C $(MLX); fi &> /dev/null
