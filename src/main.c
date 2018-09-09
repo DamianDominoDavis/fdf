@@ -21,7 +21,7 @@ t_mlxp	*construct(void)
 	if (!(mlx = ft_memalloc(sizeof(t_mlxp))))
 		return (NULL);
 	if (!(mlx->mlx_ptr = mlx_init()) ||
-		!(mlx->win_ptr = mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, 500, 500, "mlx 42")) )
+		!(mlx->win_ptr = mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIDTH, HEIGHT, "mlx 42")) )
 		return (deconstruct(mlx));
 	return (mlx);
 }
@@ -57,11 +57,14 @@ int mousepress(int key, void *param)
 	return (1);
 }
 
+void loadimage(char *img_ptr, void *param)
+{
+	mlx_new_image(param->mlx, WIDTH, HEIGHT);
+}
+
 int main()
 {
 	t_mlxp *mlx = construct();
-	
-
 	mlx_key_hook(mlx->win_ptr, keypress, mlx);
 	mlx_loop(mlx->mlx_ptr);
 }
