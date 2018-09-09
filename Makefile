@@ -1,7 +1,7 @@
 NAME = fdf
 
 SRC_DIR = ./src/
-SRC_FILES = fdf.c
+SRC_FILES = main.c drawline.c intcolor.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 INC_DIR = ./includes/
@@ -17,39 +17,44 @@ CFLAGS = -Wall -Wextra -Werror
 MLX		= ./minilibx/
 MLX_LIB	= $(addprefix $(MLX),libmlx.a)
 MLX_INC	= -I $(MLX)
-MLX_LNK	= -Lminilibx -lmlx -framework OpenGL -framework AppKit
+MLX_LNK	= -L minilibx -l mlx -framework OpenGL -framework AppKit
 
 FT		= ./libft/
 FT_LIB	= $(addprefix $(FT),libft.a)
-FT_INC	= -Ilibft
-FT_LNK	= -Llibft -lft
+FT_INC	= -I ./libft/includes/
+FT_LNK	= -L libft -l ft
 
 all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
 
 obj:
-	@mkdir -p $(OBJ_DIR) &> /dev/null
+	mkdir -p $(OBJ_DIR) &> /dev/null
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ &> /dev/null
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ #&> /dev/null
 
 $(FT_LIB):
-	@if [[ ! -e $(FT_LIB) ]]; then make -C $(FT); ranlib $(FT_LIB); fi &> /dev/null
+	if [[ ! -e $(FT_LIB) ]]; then make -C $(FT); fi #&> /dev/null
 
 $(MLX_LIB):
-	@if [[ ! -e $(MLX_LIB) ]]; then make -C $(MLX); fi &> /dev/null
+	if [[ ! -e $(MLX_LIB) ]]; then make -C $(MLX); fi #&> /dev/null
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME) &> /dev/null
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME) #&> /dev/null
 
 clean:
-	@make -C $(FT) clean &> /dev/null
-	@rm -rfv $(OBJS) &> /dev/null
+	make -C $(FT) clean #&> /dev/null
+	rm -rfv $(OBJS) #&> /dev/null
 
 fclean: clean
-	@make -C $(FT) fclean &> /dev/null
-	@make -C $(MLX) clean &> /dev/null
-	@rm -rf $(NAME) &> /dev/null
+	make -C $(FT) fclean #&> /dev/null
+	make -C $(MLX) clean #&> /dev/null
+	rm -rf $(NAME) #&> /dev/null
 
 re: fclean all
 
-.PHONY: all $(NAME) clean fclean re
+req: clean
+	rm -rf $(NAME) #&> /dev/null
+	make all #&> /dev/null
+	make clean
+
+.PHONY: all obj $(NAME) clean fclean re req

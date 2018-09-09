@@ -6,9 +6,11 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 18:56:57 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/07 19:21:53 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/08 20:03:00 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fdf.h"
 
 /*
 ** 	k[5] = dx, dy, p, x, y
@@ -27,13 +29,13 @@ void	drawline(int x0, int y0, int x1, int y1)
 	{
 		if (k[2] >= 0)
 		{
-			putpixel(k[3], k[4]);
+			//mlx_pixel_put(k[3], k[4], 0);
 			k[4] += 1;
 			k[2] += 2 * k[1] - 2 * k[0];
 		}
 		else
 		{
-			putpixel(k[3], k[4]);
+			//mlx_pixel_put(k[3], k[4]);
 			k[2] += 2 * k[1];
 		}
 	}

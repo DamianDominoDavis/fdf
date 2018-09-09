@@ -6,7 +6,7 @@
 #    By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/01 19:50:07 by cbrill            #+#    #+#              #
-#    Updated: 2018/05/01 19:59:50 by cbrill           ###   ########.fr        #
+#    Updated: 2018/09/08 20:05:02 by cbrill           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ = ft_atoi.o ft_bzero.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o \
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) $(FLAGS) -I. -c -o $@ $<
+	@$(CC) $(FLAGS) -I./includes -c -o $@ $<
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
