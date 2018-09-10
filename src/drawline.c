@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   drawline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
+/*   By: damiandavis <damiandavis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 18:56:57 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/08 20:03:00 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/10 10:12:17 by damiandavis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "fdf.h"
 
 /*
 ** 	k[5] = dx, dy, p, x, y

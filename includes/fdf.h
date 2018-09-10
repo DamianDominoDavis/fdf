@@ -5,8 +5,8 @@
 #include "mlx.h"
 #include "color.h"
 
-int		WIDTH = 500
-int		HEIGHT = 500
+int		WIDTH = 500;
+int		HEIGHT = 500;
 
 //required for minilibx
 void	*mlx_init();

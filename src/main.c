@@ -32,10 +32,10 @@ int keypress(int key, void *param)
 	ft_putnbr(key);
 	ft_putchar('\n');
 
-	param = (t_mlxp*)param;
+	t_mlxp *p = (t_mlxp*)param;
 	if (key == 53)
 	{
-		deconstruct(param);
+		deconstruct(p);
 		exit(1);
 	}
 	return (1);
@@ -49,9 +49,9 @@ int mousepress(int key, void *param)
 	ft_putnbr(key);
 	ft_putendl(NULL);
 
-	(void)param;
+	t_mlxp *p = (t_mlxp*)param;
 	if (key == 126)
-		mlx_pixel_put(param->mlx_ptr, param->win_ptr, 20, 20, intcolor(255,255,0));
+		mlx_pixel_put(p->mlx_ptr, p->win_ptr, 20, 20, intcolor(255,255,0));
 	if (key == 53)
 		exit(1);
 	return (1);
@@ -59,7 +59,9 @@ int mousepress(int key, void *param)
 
 void loadimage(char *img_ptr, void *param)
 {
-	mlx_new_image(param->mlx, WIDTH, HEIGHT);
+	t_mlxp *p = (t_mlxp*)param;
+	mlx_new_image(p->mlx_ptr, WIDTH, HEIGHT);
+	(void)img_ptr;
 }
 
 int main()
