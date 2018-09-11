@@ -1,7 +1,7 @@
 NAME = fdf
 
 SRC_DIR = ./src/
-SRC_FILES = main.c drawline.c intcolor.c
+SRC_FILES = main.c drawline.c intcolor.c hooks.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 INC_DIR = ./includes/

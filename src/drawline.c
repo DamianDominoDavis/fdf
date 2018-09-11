@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 00:42:45 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/11 01:30:01 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/11 01:56:29 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	drawlinelo(int c[], t_mlxp *p)
 	d = 2 * dy - dx;
 	while (c[0] != c[2])
 	{
-		mlx_pixel_put(p->mlx_ptr, p->win_ptr, c[0], c[1], p->color);
+		mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 		if (d > 0)
 		{
 			c[1] += yi;
@@ -34,7 +34,7 @@ void	drawlinelo(int c[], t_mlxp *p)
 		d += 2 * dy;
 		c[0] += (c[2] > c[0]) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx_ptr, p->win_ptr, c[0], c[1], p->color);
+	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 }
 
 void	drawlinehi(int c[], t_mlxp *p)
@@ -50,7 +50,7 @@ void	drawlinehi(int c[], t_mlxp *p)
 	d = 2 * dx - dy;
 	while (c[1] != c[3])
 	{
-		mlx_pixel_put(p->mlx_ptr, p->win_ptr, c[0], c[1], p->color);
+		mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 		if (d > 0)
 		{
 			c[0] += xi;
@@ -59,27 +59,27 @@ void	drawlinehi(int c[], t_mlxp *p)
 		d += 2 * dx;
 		c[1] += (c[3] > c[1]) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx_ptr, p->win_ptr, c[0], c[1], p->color);
+	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 }
 
 void	drawlinevl(int c[], t_mlxp *p)
 {
 	while (c[1] != c[3])
 	{
-		mlx_pixel_put(p->mlx_ptr, p->win_ptr, c[0], c[1], p->color);
+		mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 		c[1] += (c[1] < c[3]) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx_ptr, p->win_ptr, c[0], c[1], p->color);
+	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 }
 
 void	drawlinehl(int c[], t_mlxp *p)
 {
 	while (c[0] != c[2])
 	{
-		mlx_pixel_put(p->mlx_ptr, p->win_ptr, c[0], c[1], p->color);
+		mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 		c[0] += (c[0] < c[2]) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx_ptr, p->win_ptr, c[0], c[1], p->color);
+	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 }
 
 void	drawline(int c[], t_mlxp *p)

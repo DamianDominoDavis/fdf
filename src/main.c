@@ -1,81 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
+/*   Updated: 2018/09/11 01:56:27 by cbrill           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-int	nope(char *str, int rval)
+int		nope(char *str, int rval)
 {
 	(void)str;
 	return (rval);
 }
 
-void	*deconstruct(t_mlxp *mlx)
+void	*deconstruct(t_mlxp *p)
 {
-	if (mlx->win_ptr)
-		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-	ft_memdel((void **)&mlx);
+	if (p->win)
+		mlx_destroy_window(p->mlx, p->win);
+	ft_memdel((void **)&p);
 	return (NULL);
 }
 
 t_mlxp	*construct(void)
 {
-	t_mlxp	*mlx;
+	t_mlxp	*p;
 
-	if (!(mlx = ft_memalloc(sizeof(t_mlxp))))
+	if (!(p = ft_memalloc(sizeof(t_mlxp))))
 		return (NULL);
-	mlx->width = 400;
-	mlx->height = 300;
-	mlx->color = intcolor(255,255,255);
-	mlx->click_x = -1;
-	if (!(mlx->mlx_ptr = mlx_init()) ||
-		!(mlx->win_ptr = mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, mlx->width, mlx->height, "fdf")) )
-		return (deconstruct(mlx));
-	return (mlx);
+	p->width = 400;
+	p->height = 300;
+	p->color = intcolor(255, 255, 255);
+	p->click_x = -1;
+	if (!(p->mlx = mlx_init()) || !
+		(p->win = mlx_new_window(p->mlx, p->width, p->height, "fdf")))
+		return (deconstruct(p));
+	return (p);
 }
 
-int keypress(int key, t_mlxp *p)
+void	loadimage(char *img, t_mlxp *p)
 {
-	ft_putstr("key:");
-	ft_putnbr(key);
-	ft_putchar('\n');
-
-	if (key == 53)
-	{
-		deconstruct(p);
-		exit(1);
-	}
-	return (1);
+	mlx_new_image(p->mlx, p->width, p->height);
+	(void)img;
 }
 
-int mousepress(int button, int x, int y, t_mlxp *p)
+int		main(void)
 {
-	ft_putstr(button == 1 ? "lclick:" : "rclick");
-	ft_putnbr(x);
-	ft_putchar(',');
-	ft_putnbr(y);
-	if (p->click_x >= 0)
-	{
-		ft_putendl("(lined)");
-		drawline((int[]){p->click_x, p->click_y, x, y}, p);
-		p->click_x = -1;
-	}
-	else
-	{
-		ft_putendl("(saved)");
-		p->click_x = x;
-		p->click_y = y;
-	}
-	return (1);
-}
+	t_mlxp *p;
 
-void loadimage(char *img_ptr, t_mlxp *p)
-{
-	mlx_new_image(p->mlx_ptr, p->width, p->height);
-	(void)img_ptr;
-}
-
-int main()
-{
-	t_mlxp *mlx = construct();
-	mlx_key_hook(mlx->win_ptr, keypress, mlx);
-	mlx_mouse_hook(mlx->win_ptr, mousepress, mlx);
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, mlx->color, "(ESC) exit");
-	mlx_loop(mlx->mlx_ptr);
+	p = construct();
+	mlx_key_hook(p->win, fdf_key_hook, p);
+	mlx_mouse_hook(p->win, fdf_mouse_hook, p);
+	mlx_string_put(p->mlx, p->win, 10, 10, p->color, "ESC: exit");
+	mlx_loop(p->mlx);
 }
