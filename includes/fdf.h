@@ -5,9 +5,6 @@
 #include "mlx.h"
 #include "color.h"
 
-int		WIDTH = 500;
-int		HEIGHT = 500;
-
 //required for minilibx
 void	*mlx_init();
 
@@ -16,15 +13,20 @@ typedef struct	s_mlxp
 {
 		void	*mlx_ptr;
 		void	*win_ptr;
+		int		width;
+		int		height;
+		int		click_x;
+		int		click_y;
+		int		color;
 }		t_mlxp;
 
 int		nope(char *str, int rval);
 void	*deconstruct(t_mlxp *mlx);
 t_mlxp	*construct(void);
-int		keypress(int key, void *param);
-int		mousepress(int key, void *param);
+int		keypress(int key, t_mlxp *p);
+int		mousepress(int button, int x, int y, t_mlxp *p);
 
 //elsewhere
-void	drawline(int x0, int y0, int x1, int y1);
+void	drawline(int c[], t_mlxp *p);
 
 #endif /* FDF_H */
