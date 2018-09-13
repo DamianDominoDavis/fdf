@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   ft_countch.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 16:51:26 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/13 13:31:56 by cbrill           ###   ########.fr       */
+/*   Created: 2018/09/13 13:35:51 by cbrill            #+#    #+#             */
+/*   Updated: 2018/09/13 13:37:03 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		**ft_strsplit(char const *str, char delim)
+int	ft_countch(const char *str, const unsigned char ch)
 {
-	char	**out;
-	int		oi;
+	char	*s;
 	int		i;
-	int		start;
 
-	if (!str || !
-		(out = (char**)malloc(sizeof(char*) * (ft_wordcount(str, delim)) + 1)))
-		return (NULL);
-	oi = 0;
+	s = (char*)str;
 	i = 0;
-	while (str[i])
-	{
-		while (str[i] == delim)
+	while (*s)
+		if (*s++ == ch)
 			i++;
-		start = i;
-		while (str[i] && str[i] != delim)
-			i++;
-		if (i > start)
-			out[oi++] = ft_strndup(str + start, i - start);
-	}
-	out[oi] = NULL;
-	return (out);
+	return (i);
 }

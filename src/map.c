@@ -6,34 +6,66 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 18:46:18 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/12 20:41:32 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/13 16:08:06 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	**mapfromfile(int fd)
+/*
+** files are tab-separated signed int values, in any number of lines and
+** the same number of values per line
+**
+** setbuffwidth is pointless for gnl, but it could be libft src in future
+*/
+
+int	setbuffwidth(int fd)
 {
-	(void)fd;
-	// int ok = 1;
+	char	**buf;
+	size_t	llen;
+	size_t	record;
 
-	// int **intline;
-	// char **charline;
-
-	// int width;
-	// int lines;
-	// validate equal number of entries per line;
-	// return malloc'd intline from "width" and "height"
-	// while getnextline
-	// 	for "int" in gnl
-	// 		intline[k] = ft_atoi("int")
-
-	return (NULL);
+	record = 0;
+	buf = (char**)malloc(sizeof(char*));
+	llen = 0;
+	while (0 < (get_next_line(fd, buf)))
+	{
+		if (llen < ft_strlen(*buf))
+			llen = ft_strlen(*buf);
+		ft_putnbr(llen);
+		ft_putendl("");
+		if (llen > record)
+			record = llen;
+	}
+	ft_strdel(buf);
+	ft_memdel((void**)buf);
+	return (record);
 }
 
 /*
-
-files are tab-separated signed int values, in any number of lines and
-the same number of values per line
-
+** free splits values, splits before return
 */
+
+int	**linetoints(char *str)
+{
+	int		**out;
+	int		*o;
+	char	**splits;
+	int		count;
+
+	count = ft_wordcount(str, '\t');
+	out = (int**)malloc(sizeof(int*) * count);
+	splits = ft_strsplit(str, '\t');
+	o = *out;
+	while (count--)
+	{
+		*(o++) = ft_atoi(*(splits++));
+	}
+	return (out);
+}
+
+int	**mapfromfile(int fd)
+{
+	(void)fd;
+	return (NULL);
+}

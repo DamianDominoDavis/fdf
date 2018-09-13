@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 16:57:38 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/12 19:43:58 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/13 14:28:05 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	get_next_loop(const int fd, char **fds, char *buf)
 	return (rch);
 }
 
-int		get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
 	int			rch;
 	char		buf[BUFF_SIZE + 1];

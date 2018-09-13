@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 00:42:45 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/12 18:40:47 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/13 16:05:46 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	drawlinehl(int c[], t_mlxp *p)
 	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 }
 
-void	drawline(int c[], t_mlxp *p)
+void		drawline(int c[], t_mlxp *p)
 {
 	if (c[0] == c[2])
 		drawlinevl(c, p);
