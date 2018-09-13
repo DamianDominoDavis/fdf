@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:14:39 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/12 18:56:50 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/12 20:33:24 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ int				fdf_expose_hook(t_mlxp *p);
 */
 void			drawline(int c[], t_mlxp *p);
 
+/*
+** others
+*/
 int				intcolor(int r, int g, int b);
+int				**mapfromfile(int fd);
 
 #endif

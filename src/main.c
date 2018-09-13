@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/12 19:58:11 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/12 20:33:42 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ void	loadimage(char *img, t_mlxp *p)
 int		main(int c, char **v)
 {
 	t_mlxp *p;
-	char **gnl;
+	int **map;
 
-	if ((gnl = (char**)malloc(sizeof(char*) * 50)))
-		if (c > 1 && get_next_line(open(v[1], O_RDONLY), gnl))
-			ft_putendl(*gnl);
-	p = construct();
-	mlx_key_hook(p->win, fdf_key_hook, p);
-	mlx_mouse_hook(p->win, fdf_mouse_hook, p);
-	mlx_expose_hook(p->win, fdf_expose_hook, p);
-	mlx_string_put(p->mlx, p->win, 10, 10, p->color, "ESC: exit");
-	mlx_loop(p->mlx);
+	if (c == 2 && (map = mapfromfile(open(v[1], O_RDONLY))))
+	{
+		p = construct();
+		mlx_key_hook(p->win, fdf_key_hook, p);
+		mlx_mouse_hook(p->win, fdf_mouse_hook, p);
+		mlx_expose_hook(p->win, fdf_expose_hook, p);
+		mlx_string_put(p->mlx, p->win, 10, 10, p->color, "ESC: exit");
+		mlx_loop(p->mlx);
+	}
 }
