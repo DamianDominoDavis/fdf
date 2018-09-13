@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damiandavis <damiandavis@student.42.fr>    +#+  +:+       +#+        */
+/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/12 17:44:54 by damiandavis      ###   ########.fr       */
+/*   Updated: 2018/09/12 18:35:12 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		main(void)
 	p = construct();
 	mlx_key_hook(p->win, fdf_key_hook, p);
 	mlx_mouse_hook(p->win, fdf_mouse_hook, p);
-	mlx_expose_hook(p->mlx, fdf_expose_hook, p);
+	mlx_expose_hook(p->win, fdf_expose_hook, p);
 	mlx_string_put(p->mlx, p->win, 10, 10, p->color, "ESC: exit");
 	mlx_loop(p->mlx);
 }
