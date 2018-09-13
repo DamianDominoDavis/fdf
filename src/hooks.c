@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
+/*   By: damiandavis <damiandavis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:53:18 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/11 01:57:38 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/12 17:45:07 by damiandavis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	fdf_key_hook(int key, t_mlxp *p)
 		deconstruct(p);
 		exit(1);
 	}
-	return (1);
+	return (0);
 }
 
 int	fdf_mouse_hook(int button, int x, int y, t_mlxp *p)
@@ -43,5 +43,12 @@ int	fdf_mouse_hook(int button, int x, int y, t_mlxp *p)
 		p->click_x = x;
 		p->click_y = y;
 	}
-	return (1);
+	return (0);
+}
+
+int	fdf_expose_hook(t_mlxp *p)
+{
+	(void)p;
+	ft_putendl("expose");
+	return (0);
 }

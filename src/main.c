@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
+/*   By: damiandavis <damiandavis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/11 01:56:27 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/12 17:44:54 by damiandavis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_mlxp	*construct(void)
 
 	if (!(p = ft_memalloc(sizeof(t_mlxp))))
 		return (NULL);
-	p->width = 400;
-	p->height = 300;
+	p->width = K_WIDTH;
+	p->height = K_HEIGHT;
 	p->color = intcolor(255, 255, 255);
 	p->click_x = -1;
 	if (!(p->mlx = mlx_init()) || !
@@ -55,6 +55,7 @@ int		main(void)
 	p = construct();
 	mlx_key_hook(p->win, fdf_key_hook, p);
 	mlx_mouse_hook(p->win, fdf_mouse_hook, p);
+	mlx_expose_hook(p->mlx, fdf_expose_hook, p);
 	mlx_string_put(p->mlx, p->win, 10, 10, p->color, "ESC: exit");
 	mlx_loop(p->mlx);
 }

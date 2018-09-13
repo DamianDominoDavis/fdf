@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   intcolor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
+/*   By: damiandavis <damiandavis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/08 20:57:57 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/11 01:56:28 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/12 15:34:19 by damiandavis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "color.h"
+#include "fdf.h"
 
 int	intcolor(int r, int g, int b)
 {

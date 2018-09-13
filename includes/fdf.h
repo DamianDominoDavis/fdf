@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
+/*   By: damiandavis <damiandavis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:14:39 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/11 01:56:29 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/12 17:45:38 by damiandavis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,45 @@
 # include "libft.h"
 # include "mlx.h"
 
+# define K_WIDTH (int)500
+# define K_HEIGHT (int)500
+
 typedef struct	s_mlxp
 {
 	void	*mlx;
 	void	*win;
-	int		width;
-	int		height;
-	int		click_x;
-	int		click_y;
-	int		color;
-}				t_mlxp;
+	int	click_x;
+	int	click_y;
+	int	color;
+	int	width;
+	int	height;
+}	t_mlxp;
 
-void			*mlx_init();
+void	*mlx_init();
 
 /*
 ** src/main.c
 */
-int				nope(char *str, int rval);
-void			*deconstruct(t_mlxp *mlx);
-t_mlxp			*construct(void);
+int	nope(char *str, int rval);
+void	*deconstruct(t_mlxp *mlx);
+t_mlxp	*construct(void);
 
 /*
 ** src/hooks.c
 */
-int				fdf_key_hook(int key, t_mlxp *p);
-int				fdf_mouse_hook(int button, int x, int y, t_mlxp *p);
+int	fdf_key_hook(int key, t_mlxp *p);
+int	fdf_mouse_hook(int button, int x, int y, t_mlxp *p);
+int	fdf_expose_hook(t_mlxp *p);
 
 /*
 ** src/drawline.c
 */
-void			drawlinelo(int c[], t_mlxp *p);
-void			drawlinehi(int c[], t_mlxp *p);
-void			drawlinevl(int c[], t_mlxp *p);
-void			drawlinehl(int c[], t_mlxp *p);
-void			drawline(int c[], t_mlxp *p);
+void	drawlinelo(int c[], t_mlxp *p);
+void	drawlinehi(int c[], t_mlxp *p);
+void	drawlinevl(int c[], t_mlxp *p);
+void	drawlinehl(int c[], t_mlxp *p);
+void	drawline(int c[], t_mlxp *p);
 
-int				intcolor(int r, int g, int b);
+int	intcolor(int r, int g, int b);
 
 #endif
