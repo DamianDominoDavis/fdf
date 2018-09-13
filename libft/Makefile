@@ -6,41 +6,61 @@
 #    By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/01 19:50:07 by cbrill            #+#    #+#              #
-#    Updated: 2018/09/08 20:05:02 by cbrill           ###   ########.fr        #
+#    Updated: 2018/09/12 19:53:15 by cbrill           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-FLAGS = -Wall -Wextra -Werror
+
+SRC_DIR = ./src/
+SRC_FILES = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
+	ft_isdigit.c ft_islower.c ft_isprint.c ft_isspace.c ft_isupper.c ft_itoa.c \
+	ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c ft_lstmap.c \
+	ft_lstnew.c ft_memalloc.c ft_memccpy.c ft_memchr.c ft_memcmp.c \
+	ft_memcpy.c ft_memdel.c ft_memmove.c ft_memset.c ft_putchar.c \
+	ft_putchar_fd.c ft_putendl.c ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c \
+	ft_putstr.c ft_putstr_fd.c ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c \
+	ft_strcpy.c ft_strdel.c ft_strdup.c ft_strequ.c ft_striter.c ft_striteri.c \
+	ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c \
+	ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strndup.c ft_strnequ.c \
+	ft_strnew.c ft_strnstr.c ft_stroverlap.c ft_strrchr.c ft_strsplit.c \
+	ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
+	get_next_line.c
+SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
+
+INC_DIR = ./includes/
+INCLUDES = -I$(INC_DIR)
+
+OBJ_DIR = ./obj/
+OBJ_FILES = $(SRC_FILES:.c=.o)
+OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
+
 CC = gcc
-OBJ = ft_atoi.o ft_bzero.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o \
-	ft_islower.o ft_isprint.o ft_isspace.o ft_isupper.o ft_itoa.o ft_lstadd.o \
-	ft_lstdel.o ft_lstdelone.o ft_lstiter.o ft_lstmap.o ft_lstnew.o \
-	ft_memalloc.o ft_memccpy.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memdel.o \
-	ft_memmove.o ft_memset.o ft_putchar.o ft_putchar_fd.o ft_putendl.o \
-	ft_putendl_fd.o ft_putnbr.o ft_putnbr_fd.o ft_putstr.o ft_putstr_fd.o \
-	ft_strcat.o ft_strchr.o ft_strclr.o ft_strcmp.o ft_strcpy.o ft_strdel.o \
-	ft_strdup.o ft_strequ.o ft_striter.o ft_striteri.o ft_strjoin.o \
-	ft_strlcat.o ft_strlen.o ft_strmap.o ft_strmapi.o ft_strncat.o \
-	ft_strncmp.o ft_strncpy.o ft_strndup.o ft_strnequ.o ft_strnew.o \
-	ft_strnstr.o ft_stroverlap.o ft_strrchr.o ft_strsplit.o ft_strstr.o \
-	ft_strsub.o ft_strtrim.o ft_tolower.o ft_toupper.o
+CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME)
+all: obj $(NAME)
 
-%.o: %.c
-	@$(CC) $(FLAGS) -I./includes -c -o $@ $<
+obj:
+	@mkdir -p $(OBJ_DIR) &> /dev/null
 
-$(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ &> /dev/null
+
+$(NAME): $(OBJS)
+	@ar rc $(NAME) $(OBJS) &> /dev/null
+	@ranlib $(NAME) &> /dev/null
 
 clean:
-	@/bin/rm -f *.o
+	@rm -rfv $(OBJS) &> /dev/null
 
 fclean: clean
-	@/bin/rm -f $(NAME)
+	@rm -rf $(NAME) &> /dev/null
 
 re: fclean all
 
-.PHONY: all clean fclean re
+req: clean
+	@rm -rf $(NAME) &> /dev/null
+	@make $(NAME) &> /dev/null
+	@make clean &> /dev/null
+
+.PHONY: all obj $(NAME) clean fclean re req

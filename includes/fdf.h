@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:14:39 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/12 18:41:00 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/12 18:56:50 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "mlx.h"
+# include <unistd.h>
 
 # define K_WIDTH (int)500
 # define K_HEIGHT (int)500

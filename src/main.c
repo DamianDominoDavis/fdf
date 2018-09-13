@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/12 18:35:12 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/12 19:58:11 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,14 @@ void	loadimage(char *img, t_mlxp *p)
 	(void)img;
 }
 
-int		main(void)
+int		main(int c, char **v)
 {
 	t_mlxp *p;
+	char **gnl;
 
+	if ((gnl = (char**)malloc(sizeof(char*) * 50)))
+		if (c > 1 && get_next_line(open(v[1], O_RDONLY), gnl))
+			ft_putendl(*gnl);
 	p = construct();
 	mlx_key_hook(p->win, fdf_key_hook, p);
 	mlx_mouse_hook(p->win, fdf_mouse_hook, p);
