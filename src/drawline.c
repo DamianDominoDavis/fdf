@@ -6,13 +6,13 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 00:42:45 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/11 01:56:29 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/12 18:40:47 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	drawlinelo(int c[], t_mlxp *p)
+static void	drawlinelo(int c[], t_mlxp *p)
 {
 	int dx;
 	int dy;
@@ -37,7 +37,7 @@ void	drawlinelo(int c[], t_mlxp *p)
 	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 }
 
-void	drawlinehi(int c[], t_mlxp *p)
+static void	drawlinehi(int c[], t_mlxp *p)
 {
 	int dx;
 	int dy;
@@ -62,7 +62,7 @@ void	drawlinehi(int c[], t_mlxp *p)
 	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 }
 
-void	drawlinevl(int c[], t_mlxp *p)
+static void	drawlinevl(int c[], t_mlxp *p)
 {
 	while (c[1] != c[3])
 	{
@@ -72,7 +72,7 @@ void	drawlinevl(int c[], t_mlxp *p)
 	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
 }
 
-void	drawlinehl(int c[], t_mlxp *p)
+static void	drawlinehl(int c[], t_mlxp *p)
 {
 	while (c[0] != c[2])
 	{
