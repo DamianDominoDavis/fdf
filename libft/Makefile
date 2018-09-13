@@ -6,7 +6,7 @@
 #    By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/01 19:50:07 by cbrill            #+#    #+#              #
-#    Updated: 2018/09/12 19:53:15 by cbrill           ###   ########.fr        #
+#    Updated: 2018/09/12 20:10:44 by cbrill           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,26 +41,26 @@ CFLAGS = -Wall -Wextra -Werror
 all: obj $(NAME)
 
 obj:
-	@mkdir -p $(OBJ_DIR) &> /dev/null
+	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ &> /dev/null
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@ar rc $(NAME) $(OBJS) &> /dev/null
-	@ranlib $(NAME) &> /dev/null
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
 
 clean:
-	@rm -rfv $(OBJS) &> /dev/null
+	@rm -rf $(OBJS)
 
 fclean: clean
-	@rm -rf $(NAME) &> /dev/null
+	@rm -rf $(NAME)
 
 re: fclean all
 
 req: clean
-	@rm -rf $(NAME) &> /dev/null
-	@make $(NAME) &> /dev/null
-	@make clean &> /dev/null
+	@rm -rf $(NAME)
+	@make $(NAME)
+	@make clean
 
 .PHONY: all obj $(NAME) clean fclean re req

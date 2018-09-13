@@ -27,34 +27,34 @@ FT_LNK	= -L libft -l ft
 all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
 
 obj:
-	mkdir -p $(OBJ_DIR) &> /dev/null
+	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ #&> /dev/null
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(FT_LIB):
-	if [[ ! -e $(FT_LIB) ]]; then make -C $(FT); fi #&> /dev/null
+	@if [[ ! -e $(FT_LIB) ]]; then make -C $(FT); fi
 
 $(MLX_LIB):
-	if [[ ! -e $(MLX_LIB) ]]; then make -C $(MLX); fi #&> /dev/null
+	@if [[ ! -e $(MLX_LIB) ]]; then make -C $(MLX) &> /dev/null; fi
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME) #&> /dev/null
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
 
 clean:
-	make -C $(FT) clean #&> /dev/null
-	rm -rfv $(OBJS) #&> /dev/null
+	@make -C $(FT) clean
+	@rm -rf $(OBJS)
 
 fclean: clean
-	make -C $(FT) fclean #&> /dev/null
-	make -C $(MLX) clean #&> /dev/null
-	rm -rf $(NAME) #&> /dev/null
+	@make -C $(FT) fclean
+	@make -C $(MLX) clean &> /dev/null
+	@rm -rf $(NAME)
 
 re: fclean all
 
 req: clean
-	rm -rf $(NAME) #&> /dev/null
-	make all #&> /dev/null
-	make clean
+	@rm -rf $(NAME)
+	@make all
+	@make clean
 
 .PHONY: all obj $(NAME) clean fclean re req
