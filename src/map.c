@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 18:46:18 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/13 17:54:21 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/13 21:29:53 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,24 @@
 ** setbuffwidth is pointless for gnl, but it could be libft src in future
 */
 
-int	setbuffwidth(int fd)
+int	*getsize(int fd)
 {
-	char	**buf;
-	size_t	llen;
-	size_t	record;
+	char *line;
+	char **split;
+	const int width;
+	int height;
 
-	record = 0;
-	buf = (char**)malloc(sizeof(char*));
-	llen = 0;
-	while (0 < (get_next_line(fd, buf)))
+	line = NULL;
+	height = 1;
+	(1 == get_next_line(fd, line)) ?
+		width = ft_wordcount(line) : return ((int[]){0,0});
+	while (1 == get_next_line(fd, line))
 	{
-		if (llen < ft_strlen(*buf))
-			llen = ft_strlen(*buf);
-		ft_putnbr(llen);
-		ft_putendl("");
-		if (llen > record)
-			record = llen;
+		if (width != ft_wordcount())
+			return ((int[]){0,0});
+		hwight++;
 	}
-	ft_strdel(buf);
-	ft_memdel((void**)buf);
-	return (record);
+	return ((int[]){width,height});
 }
 
 /*

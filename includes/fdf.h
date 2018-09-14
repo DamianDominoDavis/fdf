@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:14:39 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/13 14:52:14 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/13 21:30:22 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include "mlx.h"
 # include <unistd.h>
 
-# define K_WIDTH (int)500
-# define K_HEIGHT (int)500
+# define K_BPP (int)24
 
 typedef struct	s_mlxp
 {
@@ -26,9 +25,10 @@ typedef struct	s_mlxp
 	void		*win;
 	int			click_x;
 	int			click_y;
-	int			color;
 	int			width;
 	int			height;
+	int			bpp;
+	int			**map;
 }				t_mlxp;
 
 void			*mlx_init();
