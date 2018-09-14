@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
+/*   By: damiandavis <damiandavis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 18:46:18 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/13 21:29:53 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/14 14:47:04 by damiandavis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,18 @@ int	**linetoints(char *str)
 	return (out);
 }
 
-int	**mapfromfile(int fd)
+int	**mapfromfile(int fd, t_mlxp *p)
 {
-	char	**line;
+	int	*size;
+	void	*ptr;
 
-	line = (char**)malloc(sizeof(char*));
-	if (0 <= get_next_line(fd, line))
-		return (linetoints(*line));
-	return (NULL);
+	if (0 == (size = getsize(fd)))
+		return nope("map.c:mapfromfile - file format error", 0);
+	p->width = size[0];
+	p->height = size[1];
+	p->map = (int**)malloc(sizeof(int*) * (p->height + 1));
+	ft_memset(p->map, 0, sizeof(p->map));
+	ptr = *map;
+	while (*ptr)
+		;
 }
