@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/13 16:06:27 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/13 17:59:25 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	loadimage(char *img, t_mlxp *p)
 
 int		main(int c, char **v)
 {
-	t_mlxp *p;
+	t_mlxp	*p;
 
 	if (c == 2)
 	{
-		ft_putnbr(setbuffwidth(open(v[1], O_RDONLY)));
-		ft_putendl("");
-		p = construct();
+		(void)v;
+		if (!(p = construct()))
+			nope("main.main: could not construct t_mlxp *p", -1);
 		mlx_key_hook(p->win, fdf_key_hook, p);
 		mlx_mouse_hook(p->win, fdf_mouse_hook, p);
 		mlx_expose_hook(p->win, fdf_expose_hook, p);
