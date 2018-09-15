@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/13 17:59:25 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/14 22:54:26 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,13 @@ t_mlxp	*construct(void)
 
 	if (!(p = ft_memalloc(sizeof(t_mlxp))))
 		return (NULL);
-	p->width = K_WIDTH;
-	p->height = K_HEIGHT;
 	p->color = intcolor(255, 255, 255);
 	p->click_x = -1;
+	p->map = (t_tab2dint){ NULL, 0, 0 };
 	if (!(p->mlx = mlx_init()) || !
-		(p->win = mlx_new_window(p->mlx, p->width, p->height, "fdf")))
+		(p->win = mlx_new_window(p->mlx, p->map.c, p->map.r, "fdf")))
 		return (deconstruct(p));
 	return (p);
-}
-
-void	loadimage(char *img, t_mlxp *p)
-{
-	mlx_new_image(p->mlx, p->width, p->height);
-	(void)img;
 }
 
 int		main(int c, char **v)
@@ -54,9 +47,12 @@ int		main(int c, char **v)
 
 	if (c == 2)
 	{
-		(void)v;
 		if (!(p = construct()))
-			nope("main.main: could not construct t_mlxp *p", -1);
+			nope("main.c:construct\tOOM or mlx error", -1);
+		mapfromfile(v[1], p);
+		if (p->map.r == 0)
+			nope("map.c:getsize reports file error", -1);
+		printf("\n%d\n\n", p->map.map[1][2]);
 		mlx_key_hook(p->win, fdf_key_hook, p);
 		mlx_mouse_hook(p->win, fdf_mouse_hook, p);
 		mlx_expose_hook(p->win, fdf_expose_hook, p);

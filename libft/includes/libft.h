@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 17:04:39 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/13 14:56:44 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/14 22:57:22 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_tab2dint
+{
+	int**			map;
+	unsigned int	r;
+	unsigned int	c;
+}					t_tab2dint;
 
 int					ft_atoi(const char *str);
 void				ft_bzero(void *str, size_t n);
@@ -98,7 +105,9 @@ char				*ft_strsub(char const *str, unsigned int start, size_t len);
 char				*ft_strtrim(char const *str);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
-int					ft_wordcount(char const *str, char delim);
+unsigned int		ft_wordcount(char const *str, char delim);
 int					get_next_line(const int fd, char **line);
+t_tab2dint			*maketab_ints(t_tab2dint *tab, unsigned int r, unsigned int c);
+void				unmaketab(void *tab);
 
 #endif

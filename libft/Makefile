@@ -6,7 +6,7 @@
 #    By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/01 19:50:07 by cbrill            #+#    #+#              #
-#    Updated: 2018/09/13 15:58:09 by cbrill           ###   ########.fr        #
+#    Updated: 2018/09/14 17:21:31 by cbrill           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c \
 ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strndup.c ft_strnequ.c ft_strnew.c \
 ft_strnstr.c ft_stroverlap.c ft_strrchr.c ft_strrevolve.c ft_strshift.c \
 ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
-ft_wordcount.c get_next_line.c
+ft_wordcount.c get_next_line.c maketab_ints.c unmaketab.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 INC_DIR = ./includes/

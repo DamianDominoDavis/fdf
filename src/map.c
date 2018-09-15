@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: damiandavis <damiandavis@student.42.fr>    +#+  +:+       +#+        */
+/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 18:46:18 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/14 14:47:04 by damiandavis      ###   ########.fr       */
+/*   Updated: 2018/09/14 23:00:36 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,73 +15,65 @@
 /*
 ** files are space-separated signed int values, in any number of lines and
 ** the same number of values per line
-**
-** setbuffwidth is pointless for gnl, but it could be libft src in future
 */
 
-int	*getsize(int fd)
+void	getsize(char *path, t_mlxp *p)
 {
-	char *line;
-	char **split;
-	const int width;
-	int height;
+	char **line;
+	int fd;
 
-	line = NULL;
-	height = 1;
-	(1 == get_next_line(fd, line)) ?
-		width = ft_wordcount(line) : return ((int[]){0,0});
+	fd = open(path, O_RDONLY);
+	line = (char**)malloc(sizeof(char*));
+	p->map.r = 1;
+	p->map.c = ft_wordcount(*line, ' ');
 	while (1 == get_next_line(fd, line))
 	{
-		if (width != ft_wordcount())
-			return ((int[]){0,0});
-		hwight++;
+		if (p->map.c != ft_wordcount(*line, ' '))
+			return ;
+		p->map.r++;
 	}
-	return ((int[]){width,height});
 }
 
 /*
 ** free splits values, splits before return
 */
 
-int	**linetoints(char *str)
+static void	linetoints(char *str, const int c, int *mline)
 {
-	char	**splits;
-	int		**out;
+	char	**split;
+	char	*ptr;
 	int		i;
-	int		wc;
-
-	splits = ft_strsplit(str, ' ');
-	wc = ft_wordcount(str, ' ');
-	out = (int**)malloc(sizeof(int*) * (wc + 1));
-	out[wc] = NULL;
-	ft_putendl("map.linetoints");
+	
+	split = ft_strsplit(str, ' ');
+	ptr = *split;
 	i = 0;
-	while (i < wc && *(splits[i]))
+	while (i < c)
 	{
-		ft_putstr("  string:\"");
-		ft_putstr(splits[i]);
-		ft_putstr("\" int:");
-		ft_putnbr(ft_atoi(splits[i]));
-		ft_putendl("");
-		// *out[i] = ft_atoi(splits[i]);
-		i++;
+		if (*ptr)
+			mline[i] = ft_atoi(ptr);
+		ptr = split[++i];
 	}
-	ft_putendl("endline");
-	return (out);
 }
 
-int	**mapfromfile(int fd, t_mlxp *p)
+void		mapfromfile(char *path, t_mlxp *p)
 {
-	int	*size;
-	void	*ptr;
-
-	if (0 == (size = getsize(fd)))
-		return nope("map.c:mapfromfile - file format error", 0);
-	p->width = size[0];
-	p->height = size[1];
-	p->map = (int**)malloc(sizeof(int*) * (p->height + 1));
-	ft_memset(p->map, 0, sizeof(p->map));
-	ptr = *map;
-	while (*ptr)
-		;
+	unsigned int	i;
+	char			**line;
+	int				fd;
+	
+	getsize(path, p);
+	if (p->map.c == 0)
+		return ;
+	printf("got size %d,%d\n", p->map.r, p->map.c);
+	maketab_ints(&(p->map), p->map.r, p->map.c);
+	printf("made tab\n");
+	fd = open(path, O_RDONLY);
+	i = 0;
+	line = (char**)malloc(sizeof(char*));
+	while (i < p->map.r)
+	{
+		get_next_line(fd, line);
+		printf("processing line %s\n", *line);
+		linetoints(*line, p->map.c, p->map.map[i]);
+	}
 }
