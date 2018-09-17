@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:14:39 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/14 22:55:32 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/15 17:58:30 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void			drawline(int c[], t_mlxp *p);
 */
 int				intcolor(int r, int g, int b);
 int				setbuffwidth(int fd);
+void			debugint(char *str, int x, int nl);
 
 /*
 ** map.c
