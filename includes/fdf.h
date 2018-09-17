@@ -1,34 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/11 01:14:39 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/15 17:58:30 by cbrill           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FDF_H
 # define FDF_H
 
 # include "libft.h"
 # include "mlx.h"
 # include <unistd.h>
-#include <stdio.h>
 
-# define K_BPP (int)24
+# define K_W (int)400
+# define K_H (int)300
+
+typedef struct s_vmap
+{
+	int			**m;
+	int			rows;
+	int			cols;
+	int			bpp;
+}				t_vmap;
 
 typedef struct	s_mlxp
 {
 	void		*mlx;
 	void		*win;
-	int			click_x;
-	int			click_y;
-	int			bpp;
-	t_tab2dint	map;
 	int			color;
+	t_vmap		*map;
 }				t_mlxp;
 
 /*
@@ -36,35 +29,15 @@ typedef struct	s_mlxp
 */
 void			*mlx_init();
 
-/*
-** main.c
-*/
-int				nope(char *str, int rval);
-void			*deconstruct(t_mlxp *p);
-t_mlxp			*construct(void);
+void		drawline(int c[], t_mlxp *p);
 
-/*
-** hooks.c
-*/
-int				fdf_key_hook(int key, t_mlxp *p);
-int				fdf_mouse_hook(int button, int x, int y, t_mlxp *p);
-int				fdf_expose_hook(t_mlxp *p);
-
-/*
-** drawline.c
-*/
-void			drawline(int c[], t_mlxp *p);
-
-/*
-** others
-*/
-int				intcolor(int r, int g, int b);
-int				setbuffwidth(int fd);
-void			debugint(char *str, int x, int nl);
-
-/*
-** map.c
-*/
-void			mapfromfile(char *path, t_mlxp *p);
+void	mlx_connect_hook(t_mlxp *p);
+int	intcolor(int r, int g, int b);
+int		nope(char *str, int rval);
+int		main(int c, char **v);
+int	map_load(t_vmap *map, char *path);
+void	map_destroy(t_vmap *map);
+void	mlx_destroy(t_mlxp *p);
+int		mlx_create(t_mlxp *p, t_vmap *map);
 
 #endif

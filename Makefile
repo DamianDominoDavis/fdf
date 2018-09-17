@@ -1,7 +1,7 @@
 NAME = fdf
 
 SRC_DIR = ./src/
-SRC_FILES = main.c drawline.c intcolor.c hooks.c map.c
+SRC_FILES = drawline.c hooks.c intcolor.c main.c map.c mlx.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 INC_DIR = ./includes/
@@ -12,7 +12,9 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -O0 -Wall -Wextra -Werror
+
+LIBS = $(MLX_LNK) $(FT_LNK) -lm
 
 MLX		= ./minilibx/
 MLX_LIB	= $(addprefix $(MLX),libmlx.a)
@@ -39,7 +41,7 @@ $(MLX_LIB):
 	@if [[ ! -e $(MLX_LIB) ]]; then make -C $(MLX) &> /dev/null; fi
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 clean:
 	@make -C $(FT) clean

@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/16 13:11:31 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/17 11:25:43 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,33 @@
 
 int		nope(char *str, int rval)
 {
-	(void)str;
+	ft_putendl(str);
 	return (rval);
-}
-
-void	debugint(char *str, int x, int nl)
-{
-	ft_putstr(str);
-	ft_putchar('(');
-	ft_putnbr(x);
-	ft_putchar(')');
-	if (nl)
-		ft_putendl("");
-}
-
-void	*deconstruct(t_mlxp *p)
-{
-	if (p->win)
-		mlx_destroy_window(p->mlx, p->win);
-	ft_memdel((void **)&p);
-	return (NULL);
-}
-
-t_mlxp	*construct(void)
-{
-	t_mlxp	*p;
-
-	if (!(p = ft_memalloc(sizeof(t_mlxp))))
-		return (NULL);
-	p->color = intcolor(255, 255, 255);
-	p->click_x = -1;
-	p->map = (t_tab2dint){ NULL, 0, 0 };
-	if (!(p->mlx = mlx_init()) || !
-		(p->win = mlx_new_window(p->mlx, p->map.c, p->map.r, "fdf")))
-		return (deconstruct(p));
-	return (p);
 }
 
 int		main(int c, char **v)
 {
-	t_mlxp	*p;
+	t_mlxp	mlx;
+	t_vmap	map;
 
 	if (c == 2)
 	{
-		if (!(p = construct()))
-			nope("main.c:construct\tOOM or mlx error", -1);
-		mapfromfile(v[1], p);
-		if (p->map.r == 0)
-			nope("map.c:getsize reports file error", -1);
+		ft_putendl("main: start");
+		if (!(map_load(&map, v[1])))
+			return nope("main: could not load map", -1);
+		ft_putendl("main: map loaded");
+		if (!(mlx_create(&mlx, &map)))
+		{
+			mlx_destroy(&mlx);
+			return nope("main.c:main\tcould not create mlx", -1);
+		}
+		ft_putendl("main: mlx created");
+		ft_putstr("test value: ");
+		ft_putnbr(map.m[4][4]);
+		ft_putendl("");
+		mlx_connect_hook(&mlx);
+	}
+	else
+		ft_putendl("usage: fdf map_path\ntry: fdf maps/test");
+	return (0);
 }
