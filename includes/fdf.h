@@ -29,15 +29,15 @@ typedef struct	s_mlxp
 */
 void			*mlx_init();
 
-void		drawline(int c[], t_mlxp *p);
-
-void	mlx_connect_hook(t_mlxp *p);
-int	intcolor(int r, int g, int b);
-int		nope(char *str, int rval);
-int		main(int c, char **v);
-int	map_load(t_vmap *map, char *path);
-void	map_destroy(t_vmap *map);
-void	mlx_destroy(t_mlxp *p);
-int		mlx_create(t_mlxp *p, t_vmap *map);
+void			drawline(int c[], t_mlxp *p);
+void			drawmap(t_mlxp *mlx, t_vmap *map);
+void			mlx_connect_hook(t_mlxp *p);
+int				intcolor(int r, int g, int b);
+int				nope(char *str, int rval);
+int				main(int c, char **v);
+int				map_load(t_vmap *map, char *path);
+void			map_destroy(t_vmap *map);
+void			mlx_destroy(t_mlxp *p);
+int				mlx_create(t_mlxp *p, t_vmap *map);
 
 #endif

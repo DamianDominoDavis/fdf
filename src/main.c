@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/17 11:25:43 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/17 16:44:01 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ int		main(int c, char **v)
 			return nope("main.c:main\tcould not create mlx", -1);
 		}
 		ft_putendl("main: mlx created");
-		ft_putstr("test value: ");
-		ft_putnbr(map.m[4][4]);
-		ft_putendl("");
+		drawmap(&mlx, &map);
 		mlx_connect_hook(&mlx);
 	}
 	else
