@@ -6,92 +6,92 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 00:42:45 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/13 16:05:46 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/18 13:12:08 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	drawlinelo(int c[], t_mlxp *p)
+static void	drawlinelo(t_mlxp *p, t_xyz a, t_xyz b)
 {
 	int dx;
 	int dy;
 	int yi;
 	int d;
 
-	dx = c[2] - c[0];
-	dy = (c[3] - c[1] > 0) ? (c[3] - c[1]) : (c[1] - c[3]);
-	yi = (c[3] - c[1] > 0) ? 1 : -1;
+	dx = b.x - a.x;
+	dy = (b.y - a.y > 0) ? (b.y - a.y) : (a.y - b.y);
+	yi = (b.y - a.y > 0) ? 1 : -1;
 	d = 2 * dy - dx;
-	while (c[0] != c[2])
+	while (a.x != b.x)
 	{
-		mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
+		mlx_pixel_put(p->mlx, p->win, a.x, a.y, colorasdepth(a.c));
 		if (d > 0)
 		{
-			c[1] += yi;
+			a.y += yi;
 			d -= 2 * dx;
 		}
 		d += 2 * dy;
-		c[0] += (c[2] > c[0]) ? 1 : -1;
+		a.x += (b.x > a.x) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
+	mlx_pixel_put(p->mlx, p->win, a.x, a.y, colorasdepth(a.c));
 }
 
-static void	drawlinehi(int c[], t_mlxp *p)
+static void	drawlinehi(t_mlxp *p, t_xyz a, t_xyz b)
 {
 	int dx;
 	int dy;
 	int xi;
 	int d;
 
-	dx = (c[2] - c[0] > 0) ? (c[2] - c[0]) : (c[0] - c[2]);
-	dy = c[3] - c[1];
-	xi = (c[2] - c[0] > 0) ? 1 : -1;
+	dx = (b.x - a.x > 0) ? (b.x - a.x) : (a.x - b.x);
+	dy = b.y - a.y;
+	xi = (b.x - a.x > 0) ? 1 : -1;
 	d = 2 * dx - dy;
-	while (c[1] != c[3])
+	while (a.y != b.y)
 	{
-		mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
+		mlx_pixel_put(p->mlx, p->win, a.x, a.y, colorasdepth(a.c));
 		if (d > 0)
 		{
-			c[0] += xi;
+			a.x += xi;
 			d -= 2 * dy;
 		}
 		d += 2 * dx;
-		c[1] += (c[3] > c[1]) ? 1 : -1;
+		a.y += (b.y > a.y) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
+	mlx_pixel_put(p->mlx, p->win, a.x, a.y, colorasdepth(a.c));
 }
 
-static void	drawlinevl(int c[], t_mlxp *p)
+static void	drawlinevl(t_mlxp *p, t_xyz a, t_xyz b)
 {
-	while (c[1] != c[3])
+	while (a.y != b.y)
 	{
-		mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
-		c[1] += (c[1] < c[3]) ? 1 : -1;
+		mlx_pixel_put(p->mlx, p->win, a.x, a.y, colorasdepth(a.c));
+		a.y += (a.y < b.y) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
+	mlx_pixel_put(p->mlx, p->win, a.x, a.y, colorasdepth(a.c));
 }
 
-static void	drawlinehl(int c[], t_mlxp *p)
+static void	drawlinehl(t_mlxp *p, t_xyz a, t_xyz b)
 {
-	while (c[0] != c[2])
+	while (a.x != b.x)
 	{
-		mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
-		c[0] += (c[0] < c[2]) ? 1 : -1;
+		mlx_pixel_put(p->mlx, p->win, a.x, a.y, colorasdepth(a.c));
+		a.x += (a.x < b.x) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx, p->win, c[0], c[1], p->color);
+	mlx_pixel_put(p->mlx, p->win, a.x, a.y, colorasdepth(a.c));
 }
 
-void		drawline(int c[], t_mlxp *p)
+void		drawline(t_mlxp *p, t_xyz a, t_xyz b)
 {
-	if (c[0] == c[2])
-		drawlinevl(c, p);
-	else if (c[1] == c[3])
-		drawlinehl(c, p);
-	else if (abs(c[3] - c[1]) < abs(c[2] - c[0]))
-		(c[0] > c[2]) ?
-			drawlinelo((int[]){c[2], c[3], c[0], c[1]}, p) : drawlinelo(c, p);
+	if (a.x == b.x)
+		drawlinevl(p, a, b);
+	else if (a.y == b.y)
+		drawlinehl(p, a, b);
+	else if (fabs(b.y - a.y) < fabs(b.x - a.x))
+		(a.x > b.x) ?
+			drawlinelo(p, b, a) : drawlinelo(p, a, b);
 	else
-		(c[1] > c[3]) ?
-			drawlinehi((int[]){c[2], c[3], c[0], c[1]}, p) : drawlinehi(c, p);
+		(a.y > b.y) ?
+			drawlinehi(p, b, a) : drawlinehi(p, a, b);
 }

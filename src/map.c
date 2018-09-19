@@ -17,14 +17,13 @@ static int	map_allot(t_vmap *map)
 	int i;
 
 	i = -1;
-	if (!(map->m = (int **)malloc(sizeof(int *) * map->rows)))
-		return nope("map_allot: can't malloc map head", -1);
-	map->m[0] = NULL;
-	if (!(map->m[0] = (int *)malloc(sizeof(int) * map->cols * map->rows)))
+	if (!(map->m = (t_xyz**)malloc(sizeof(t_xyz) * map->rows * map->cols)))
+		return nope("map_allot: can't malloc *t_xyz", -1);
+	if (!(map->m[0] = (t_xyz*)malloc(sizeof(t_xyz) * map->cols * map->rows)))
 		return nope("map_allot: can't malloc map rows", -1);
-	else
-		while (++i < map->rows)
-			map->m[i] = (*(map->m) + map->cols * i);
+	// else
+	// 	while (++i < map->rows * map->cols)
+	// 		map->m[i] = struct t_xyz;
 	return (1);
 }
 
@@ -50,13 +49,17 @@ static int	map_size(t_vmap *map, char *path)
 	return (map->rows);
 }
 
-static void	splint(int c, char **strs, int *dst)
+static void	splint(t_vmap *map, int row, char **strs, t_xyz *dst)
 {
 	int i;
 
 	i = -1;
-	while (++i < c)
-		dst[i] = ft_atoi(strs[i]);
+	while (++i < map->cols)
+	{
+		dst[i].x = i;
+		dst[i].y = row;
+		dst[i].z = ft_atoi(strs[i]);
+	}
 }
 
 int	map_load(t_vmap *map, char *path)
@@ -76,10 +79,10 @@ int	map_load(t_vmap *map, char *path)
 		return nope("map_load: can't open file", -1);
 	ft_putendl("map_load: file open ok");
 	i = -1;
-	while (++i < map->rows)
+	while (++i < map->rows * map->cols)
 	{
 		get_next_line(fd, &line);
-		splint(map->cols, ft_strsplit(line, ' '), map->m[i]);
+		splint(map, i, ft_strsplit(line, ' '), map->m[i]);
 	} 
 	ft_putendl("map_load: lines read");
 	return (1);

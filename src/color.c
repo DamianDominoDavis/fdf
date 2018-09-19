@@ -18,3 +18,8 @@ int	intcolor(int r, int g, int b)
 		return (-1);
 	return ((int)(256 * 256 * r + 256 * g + b));
 }
+
+int	colorasdepth(int c)
+{
+	return (int)((double)(c) / 10.0f * (double)intcolor(255,255,255));
+}

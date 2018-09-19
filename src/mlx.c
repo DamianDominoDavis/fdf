@@ -35,3 +35,15 @@ int		mlx_create(t_mlxp *p, t_vmap *map)
 	}
 	return (1);
 }
+
+int		view_create(t_view *v)
+{
+	v->mindepth = 0;
+	v->maxdepth = 0;
+	v->scale = 0;
+	v->x = 0;
+	v->y = 0;
+	v->marginx = 0;
+	v->marginy = 0;
+	return (1);
+}
