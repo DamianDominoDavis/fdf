@@ -26,7 +26,7 @@ void	drawmap(t_mlxp *mlx, t_vmap *map, t_view *v)
 
 t_xyz	pget(t_vmap *map, int x, int y)
 {
-	return (*map->m[y * map->cols + x]);
+	return (map->m[y * map->cols + x]);
 }
 
 t_xyz	project_vector(t_view *v, t_vmap *map, t_xyz p)

@@ -19,7 +19,7 @@ typedef struct	s_xyz
 
 typedef struct s_vmap
 {
-	t_xyz		**m;
+	t_xyz		*m;
 	int			rows;
 	int			cols;
 	int			bpp;
