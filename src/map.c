@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 13:16:15 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/16 16:35:12 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/21 12:49:32 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	map_allot(t_vmap *map)
 	int i;
 
 	i = -1;
-	if (!(map->m = (t_xyz*)malloc(sizeof(t_xyz) * map->rows * map->cols)))
-		return nope("map_allot: can't malloc *t_xyz", -1);
+	if (!(map->m = (t_vox*)malloc(sizeof(t_vox) * map->rows * map->cols)))
+		return nope("map_allot: can't malloc *t_vox", -1);
 	return (1);
 }
 
@@ -53,10 +53,7 @@ static void	splint(t_vmap *map, int row, char **strs)
 	{
 		map->m[map->cols * row + i].x = i;
 		map->m[map->cols * row + i].y = row;
-		map->m[map->cols * row + i].z = ft_atoi(strs[i]);
-		ft_putstr("\t");
-		ft_putnbr(map->m[map->cols * row + i].z);
-		ft_putendl("");
+		map->m[map->cols * row + i].z = ft_atoi(strs[i]) * 10;
 	}
 }
 
@@ -80,8 +77,6 @@ int	map_load(t_vmap *map, char *path)
 	while (++i < map->rows)
 	{
 		get_next_line(fd, &line);
-		ft_putstr("splint: ");
-		ft_putendl(line);
 		splint(map, i, ft_strsplit(line, ' '));
 	} 
 	ft_putendl("map_load: lines read");
@@ -97,6 +92,6 @@ void	map_destroy(t_vmap *map)
 		i = -1;
 		while (++i < map->rows)
 			free(&map->m[i]);
-		free(map->m);
+		free(&map->m);
 	}
 }

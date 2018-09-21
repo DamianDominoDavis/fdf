@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:53:18 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/18 11:50:10 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/21 12:27:04 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	fdf_key_hook(int key, t_mlxp *p)
 static int	fdf_mouse_hook(int button, int cx, int cy, t_mlxp *p)
 {
 	static int alternate;
-	static t_xyz click;
-	t_xyz clock;
+	static t_vox click;
+	t_vox clock;
 	ft_putstr(button == 1 ? "lclick:" : "rclick:");
 	ft_putnbr(cx);
 	ft_putchar(',');

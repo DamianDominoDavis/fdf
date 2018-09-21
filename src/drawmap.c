@@ -1,60 +1,46 @@
 #include "fdf.h"
 
-void	drawmap(t_mlxp *mlx, t_vmap *map, t_view *v)
+void	drawmap(t_mlxp *mlx, t_vmap *map)
 {
 	int			x;
 	int			y;
-	t_xyz		p;
+	t_vox		*p;
+	t_vox		*q;
 
-	x = 0;
-	while (x < map->cols)
+
+	p = malloc(sizeof(t_vox));
+	q = malloc(sizeof(t_vox));
+	y = 0;
+	while (y < map->rows)
 	{
-		y = 0;
-		while (y < map->rows)
+		x = 0;
+		while (x < map->cols)
 		{
-			p = project_vector(v, map, pget(map, x, y));
+			project(p, pget(map, x, y));
 			if (x + 1 < map->cols)
-				drawline(mlx, p, project_vector(v, map, pget(map, x, y)));
+				drawline(mlx, *p, *project(q, pget(map, x + 1, y)));
 			if (y + 1 < map->rows)
-				drawline(mlx, p, project_vector(v, map, pget(map, x, y)));
+				drawline(mlx, *p, *project(q, pget(map, x, y + 1)));
 			y++;
 		}
 		x++;
 	}
-	//	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);
+	free(p);
+	free(q);
 }
 
-t_xyz	pget(t_vmap *map, int x, int y)
+t_vox	*pget(t_vmap *map, int x, int y)
 {
-	return (map->m[y * map->cols + x]);
+	return (&map->m[y * map->cols + x]);
 }
 
-t_xyz	project_vector(t_view *v, t_vmap *map, t_xyz p)
+t_vox	*project(t_vox *dst, t_vox *src)
 {
-	p.x -= (double)(map->cols - 1) / 2.0f;
-	p.y -= (double)(map->rows - 1) / 2.0f;
-	p.z -= (double)(v->mindepth + v->maxdepth) / 2.0f;
-	p = rotate(p, v);
-	p.x *= v->scale;
-	p.y *= v->scale;
-	p.x += v->marginx;
-	p.y += v->marginy;
-	return (p);
-}
-
-t_xyz	rotate(t_xyz p, t_view *r)
-{
-	t_xyz 	tmp;
-	t_xyz	out;
-
-	tmp.x = p.x;
-	tmp.z = p.z;
-	out.x = cos(r->y) * tmp.x + sin(r->y) * tmp.z;
-	out.z = cos(r->y) * tmp.z - sin(r->y) * tmp.x;
-	tmp.y = p.y;
-	tmp.z = out.z;
-	out.y = cos(r->x) * tmp.y - sin(r->x) * tmp.z;
-	out.z = cos(r->x) * tmp.z + sin(r->x) * tmp.y;
-	out.c = p.c;
-	return (out);
+	double	x_cartesian = (src->x - src->z) * cos(atan(0.5));
+	double	x_xwindow = X_ORI + x_cartesian;
+	dst->x = x_xwindow;
+	double	y_cartesian = src->y + (src->x + src->z) * sin(atan(0.5));
+	double	y_xwindow = Y_ORI - y_cartesian;
+	dst->y = y_xwindow;
+	return (dst);
 }
