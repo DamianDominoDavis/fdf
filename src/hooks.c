@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:53:18 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/21 12:27:04 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/21 16:53:59 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	fdf_mouse_hook(int button, int cx, int cy, t_mlxp *p)
 		ft_putendl("(lined)");
 		clock.x = cx;
 		clock.y = cy;
-		drawline(p, click, clock);
+		draw_line(p, click, clock);
 		alternate = 0;
 	}
 	return (0);
@@ -58,7 +58,7 @@ static int	fdf_expose_hook(t_mlxp *p)
 
 void	fdf_connect_hook(t_mlxp *p)
 {
-	mlx_key_hook(p->win, fdf_key_hook, p);
+	mlx_hook(p->win, 2, 5, fdf_key_hook, p);
 	mlx_mouse_hook(p->win, fdf_mouse_hook, p);
 	mlx_expose_hook(p->win, fdf_expose_hook, p);
 	mlx_string_put(p->mlx, p->win, 10, 10, p->color, "ESC: exit");

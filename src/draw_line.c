@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawline.c                                         :+:      :+:    :+:   */
+/*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 00:42:45 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/21 12:27:08 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/21 16:11:11 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "fdf.h"
 
-static void	drawlinelo(t_mlxp *p, t_vox a, t_vox b)
+static void	gentle(t_mlxp *p, t_vox a, t_vox b)
 {
 	int dx;
 	int dy;
@@ -37,7 +38,7 @@ static void	drawlinelo(t_mlxp *p, t_vox a, t_vox b)
 	mlx_pixel_put(p->mlx, p->win, a.x, a.y, p->color);
 }
 
-static void	drawlinehi(t_mlxp *p, t_vox a, t_vox b)
+static void	steep(t_mlxp *p, t_vox a, t_vox b)
 {
 	int dx;
 	int dy;
@@ -62,7 +63,7 @@ static void	drawlinehi(t_mlxp *p, t_vox a, t_vox b)
 	mlx_pixel_put(p->mlx, p->win, a.x, a.y, p->color);
 }
 
-static void	drawlinevl(t_mlxp *p, t_vox a, t_vox b)
+static void	vertical(t_mlxp *p, t_vox a, t_vox b)
 {
 	while (a.y != b.y)
 	{
@@ -72,7 +73,7 @@ static void	drawlinevl(t_mlxp *p, t_vox a, t_vox b)
 	mlx_pixel_put(p->mlx, p->win, a.x, a.y, p->color);
 }
 
-static void	drawlinehl(t_mlxp *p, t_vox a, t_vox b)
+static void	horizontal(t_mlxp *p, t_vox a, t_vox b)
 {
 	while (a.x != b.x)
 	{
@@ -82,16 +83,22 @@ static void	drawlinehl(t_mlxp *p, t_vox a, t_vox b)
 	mlx_pixel_put(p->mlx, p->win, a.x, a.y, p->color);
 }
 
-void		drawline(t_mlxp *p, t_vox a, t_vox b)
+void		draw_line(t_mlxp *p, t_vox a, t_vox b)
 {
+	t_vox	c;
+	t_vox	d;
+
+	c = vox_trunc(a);
+	d = vox_trunc(b);
+	printf("draw_line: <%d,%d,%d> <%d,%d,%d>\n", (int)c.x, (int)c.y, (int)c.z, (int)d.x, (int)d.y, (int)d.z);
 	if (a.x == b.x)
-		drawlinevl(p, a, b);
+		vertical(p, c, d);
 	else if (a.y == b.y)
-		drawlinehl(p, a, b);
+		horizontal(p, c, d);
 	else if (fabs(b.y - a.y) < fabs(b.x - a.x))
 		(a.x > b.x) ?
-			drawlinelo(p, b, a) : drawlinelo(p, a, b);
+			gentle(p, d, c) : gentle(p, c, d);
 	else
 		(a.y > b.y) ?
-			drawlinehi(p, b, a) : drawlinehi(p, a, b);
+			steep(p, d, c) : steep(p, c, d);
 }
