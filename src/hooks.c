@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:53:18 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/21 16:53:59 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/24 19:04:56 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ static int	fdf_key_hook(int key, t_mlxp *p)
 
 static int	fdf_mouse_hook(int button, int cx, int cy, t_mlxp *p)
 {
-	static int alternate;
-	static t_vox click;
-	t_vox clock;
+	static int		alternate;
+	static t_vox	click;
+	t_vox			clock;
+
 	ft_putstr(button == 1 ? "lclick:" : "rclick:");
 	ft_putnbr(cx);
 	ft_putchar(',');
@@ -56,11 +57,11 @@ static int	fdf_expose_hook(t_mlxp *p)
 	return (0);
 }
 
-void	fdf_connect_hook(t_mlxp *p)
+void		fdf_connect_hook(t_mlxp *p)
 {
 	mlx_hook(p->win, 2, 5, fdf_key_hook, p);
 	mlx_mouse_hook(p->win, fdf_mouse_hook, p);
 	mlx_expose_hook(p->win, fdf_expose_hook, p);
-	mlx_string_put(p->mlx, p->win, 10, K_H - 30, p->color, "ESC: exit");
+	mlx_string_put(p->mlx, p->win, 10, K_H - 30, K_WHITE, "ESC: exit");
 	mlx_loop(p->mlx);
 }

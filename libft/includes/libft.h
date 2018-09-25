@@ -25,13 +25,6 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef struct		s_tab2dint
-{
-	int**			map;
-	unsigned int	r;
-	unsigned int	c;
-}					t_tab2dint;
-
 int					ft_atoi(const char *str);
 void				ft_bzero(void *str, size_t n);
 int					ft_countch(const char *str, const unsigned char ch);
@@ -107,7 +100,5 @@ int					ft_tolower(int c);
 int					ft_toupper(int c);
 unsigned int		ft_wordcount(char const *str, char delim);
 int					get_next_line(const int fd, char **line);
-t_tab2dint			*maketab_ints(t_tab2dint *tab, unsigned int r, unsigned int c);
-void				unmaketab(void *tab);
 
 #endif

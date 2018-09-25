@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/21 16:46:25 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/24 19:03:07 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,16 @@ int		main(int c, char **v)
 {
 	t_mlxp	mlx;
 	t_vmap	map;
-	//t_view	view;
 
 	if (c == 2)
 	{
-		ft_putendl("main: start");
-		if (!(map_load(&map, v[1])))
-			return nope("main: could not load map", -1);
-		ft_putendl("main: map loaded");
-		if (!(mlx_create(&mlx)))
+		if (!(map_create(&map, v[1])))
+			return (nope("main: could not load map", -1));
+		if (!(mlx_create(&mlx, &map)))
 		{
 			mlx_destroy(&mlx);
-			return nope("main.c:main\tcould not create mlx", -1);
+			return (nope("main.c:main\tcould not create mlx", -1));
 		}
-		ft_putendl("main: mlx created");
-		//mlx_clear_window(mlx->mlx, mlx->win);
 		draw_map(&mlx, &map);
 		fdf_connect_hook(&mlx);
 	}
