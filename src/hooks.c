@@ -61,6 +61,6 @@ void	fdf_connect_hook(t_mlxp *p)
 	mlx_hook(p->win, 2, 5, fdf_key_hook, p);
 	mlx_mouse_hook(p->win, fdf_mouse_hook, p);
 	mlx_expose_hook(p->win, fdf_expose_hook, p);
-	mlx_string_put(p->mlx, p->win, 10, 10, p->color, "ESC: exit");
+	mlx_string_put(p->mlx, p->win, 10, K_H - 30, p->color, "ESC: exit");
 	mlx_loop(p->mlx);
 }

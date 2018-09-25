@@ -21,11 +21,8 @@ void	mlx_destroy(t_mlxp *p)
 	exit(0);
 }
 
-int		mlx_create(t_mlxp *p, t_vmap *map)
+int		mlx_create(t_mlxp *p)
 {
-	// if (!(p = ft_memalloc(sizeof(t_mlxp))))
-	// 	return nope("mlx_create: can't allocate mlxp", -1);
-	(void)map;
 	p->color = intcolor(255, 255, 255);
 	if (!(p->mlx = mlx_init()) ||
 		!(p->win = mlx_new_window(p->mlx, K_W, K_H, "fdf")))

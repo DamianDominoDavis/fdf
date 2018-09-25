@@ -30,14 +30,13 @@ int		main(int c, char **v)
 		if (!(map_load(&map, v[1])))
 			return nope("main: could not load map", -1);
 		ft_putendl("main: map loaded");
-		if (!(mlx_create(&mlx, &map)))
+		if (!(mlx_create(&mlx)))
 		{
 			mlx_destroy(&mlx);
 			return nope("main.c:main\tcould not create mlx", -1);
 		}
 		ft_putendl("main: mlx created");
 		//mlx_clear_window(mlx->mlx, mlx->win);
-		map.scale = 0.9 * fmin(K_W, K_H) / (2 + fmax(map.rows, map.cols));
 		draw_map(&mlx, &map);
 		fdf_connect_hook(&mlx);
 	}
