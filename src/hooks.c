@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:53:18 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/27 17:17:57 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/28 12:07:51 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	fdf_mouse_hook(int button, int cx, int cy, t_mlxp *p)
 	static t_vox	click;
 	t_vox			clock;
 
+	(void)button;
 	if (alternate)
 	{
 		clock.x = cx;

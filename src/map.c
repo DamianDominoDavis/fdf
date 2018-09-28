@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 13:16:15 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/27 17:06:28 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/28 12:16:19 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ static int	map_size(t_vmap *map, char *path)
 {
 	char	*line;
 	int		fd;
-	int		r;
 
 	if (0 > (fd = open(path, O_RDONLY)))
 		return (nope("map_size: can't open file", -1));
 	line = NULL;
-	if (1 != (r = get_next_line(fd, &line)))
+	if (1 != get_next_line(fd, &line))
 		return (nope("map_size: can't read file (empty?)", -1));
 	map->cols = ft_wordcount(line, ' ');
 	map->rows = 1;
@@ -50,13 +49,11 @@ static void	splint(t_vmap *map, int row, char **strs)
 {
 	int		i;
 	t_vox	*v;
-	char	*r;
 
 	i = -1;
 	while (++i < map->cols)
 	{
 		v = &map->m[map->cols * row + i];
-		r = NULL;
 		v->x = i;
 		v->y = row;
 		v->z = ft_atoib(strs[i], 10) * 10;

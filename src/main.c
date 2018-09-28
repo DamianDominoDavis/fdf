@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 01:03:10 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/24 19:03:07 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/28 12:22:17 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		main(int c, char **v)
 
 	if (c == 2)
 	{
-		if (!(map_create(&map, v[1])))
+		if (0 > (map_create(&map, v[1])))
 			return (nope("main: could not load map", -1));
-		if (!(mlx_create(&mlx, &map)))
+		if (0 > (mlx_create(&mlx, &map)))
 		{
 			mlx_destroy(&mlx);
 			return (nope("main.c:main\tcould not create mlx", -1));
@@ -36,6 +36,6 @@ int		main(int c, char **v)
 		fdf_connect_hook(&mlx);
 	}
 	else
-		ft_putendl("usage: fdf map_path\ntry: fdf maps/test");
+		ft_putendl("usage: fdf map_path\ntry: fdf maps/42.fdf");
 	return (0);
 }
