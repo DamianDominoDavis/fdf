@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 00:42:45 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/24 18:59:07 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/27 16:40:07 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	gentle(t_mlxp *p, t_vox a, t_vox b)
 	d = 2 * dy - dx;
 	while (a.x != b.x)
 	{
-		mlx_pixel_put(p->mlx, p->win, a.x, a.y, K_WHITE);
+		a.c = gradient(a.c, b.c, b.x - a.x);
+		mlx_pixel_put(p->mlx, p->win, a.x, a.y, a.c);
 		if (d > 0)
 		{
 			a.y += yi;
@@ -34,7 +35,7 @@ static void	gentle(t_mlxp *p, t_vox a, t_vox b)
 		d += 2 * dy;
 		a.x += (b.x > a.x) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx, p->win, a.x, a.y, K_WHITE);
+	mlx_pixel_put(p->mlx, p->win, a.x, a.y, a.c);
 }
 
 static void	steep(t_mlxp *p, t_vox a, t_vox b)
@@ -50,7 +51,8 @@ static void	steep(t_mlxp *p, t_vox a, t_vox b)
 	d = 2 * dx - dy;
 	while (a.y != b.y)
 	{
-		mlx_pixel_put(p->mlx, p->win, a.x, a.y, K_WHITE);
+		a.c = gradient(a.c, b.c, b.y - a.y);
+		mlx_pixel_put(p->mlx, p->win, a.x, a.y, a.c);
 		if (d > 0)
 		{
 			a.x += xi;
@@ -59,27 +61,29 @@ static void	steep(t_mlxp *p, t_vox a, t_vox b)
 		d += 2 * dx;
 		a.y += (b.y > a.y) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx, p->win, a.x, a.y, K_WHITE);
+	mlx_pixel_put(p->mlx, p->win, a.x, a.y, a.c);
 }
 
 static void	vertical(t_mlxp *p, t_vox a, t_vox b)
 {
 	while (a.y != b.y)
 	{
-		mlx_pixel_put(p->mlx, p->win, a.x, a.y, K_WHITE);
+		a.c = gradient(a.c, b.c, b.y - a.y);
+		mlx_pixel_put(p->mlx, p->win, a.x, a.y, a.c);
 		a.y += (a.y < b.y) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx, p->win, a.x, a.y, K_WHITE);
+	mlx_pixel_put(p->mlx, p->win, a.x, a.y, a.c);
 }
 
 static void	horizontal(t_mlxp *p, t_vox a, t_vox b)
 {
 	while (a.x != b.x)
 	{
-		mlx_pixel_put(p->mlx, p->win, a.x, a.y, K_WHITE);
+		a.c = gradient(a.c, b.c, b.x - a.x);
+		mlx_pixel_put(p->mlx, p->win, a.x, a.y, a.c);
 		a.x += (a.x < b.x) ? 1 : -1;
 	}
-	mlx_pixel_put(p->mlx, p->win, a.x, a.y, K_WHITE);
+	mlx_pixel_put(p->mlx, p->win, a.x, a.y, a.c);
 }
 
 void		draw_line(t_mlxp *p, t_vox a, t_vox b)

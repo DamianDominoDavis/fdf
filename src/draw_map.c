@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 19:02:00 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/24 19:02:27 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/27 17:07:10 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,21 @@ void			draw_map(t_mlxp *mlx, t_vmap *map)
 				draw_line(mlx, vox_get(map, x, y), vox_get(map, x, y + 1));
 		}
 	}
+}
+
+int				gradient(int start, int end, int steps)
+{
+	int rgb[3];
+
+	if (steps == 0)
+		return (end);
+	if (steps < 0)
+		steps *= -1;
+	rgb[0] = (start & 0xFF0000) >> 16;
+	rgb[0] += (rgb[0] - ((end & 0xFF0000) >> 16)) / steps;
+	rgb[1] = (start & 0x00FF00) >> 8;
+	rgb[1] += (rgb[1] - ((end & 0x00FF00) >> 8)) / steps;
+	rgb[2] = (start & 0x0000FF);
+	rgb[2] += (rgb[2] - ((end & 0x0000FF))) / steps;
+	return (rgb[0] << 16) | (rgb[1] << 8) | (rgb[2]);
 }

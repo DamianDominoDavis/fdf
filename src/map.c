@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 13:16:15 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/24 19:08:39 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/27 17:06:28 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,22 @@ static int	map_size(t_vmap *map, char *path)
 
 static void	splint(t_vmap *map, int row, char **strs)
 {
-	int	i;
+	int		i;
+	t_vox	*v;
+	char	*r;
 
 	i = -1;
 	while (++i < map->cols)
 	{
-		map->m[map->cols * row + i].x = i;
-		map->m[map->cols * row + i].y = row;
-		map->m[map->cols * row + i].z = ft_atoi(strs[i]) * 10;
+		v = &map->m[map->cols * row + i];
+		r = NULL;
+		v->x = i;
+		v->y = row;
+		v->z = ft_atoib(strs[i], 10) * 10;
+		if (ft_strchr(strs[i], ','))
+			v->c = ft_atoib(ft_strchr(strs[i], 'x') + 1, 16);
+		else
+			v->c = K_WHITE;
 	}
 }
 

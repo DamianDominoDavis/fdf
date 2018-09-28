@@ -26,6 +26,7 @@ typedef struct		s_list
 }					t_list;
 
 int					ft_atoi(const char *str);
+int					ft_atoib(char *str, int base);
 void				ft_bzero(void *str, size_t n);
 int					ft_countch(const char *str, const unsigned char ch);
 int					ft_getnbr(char *str, int *error);
