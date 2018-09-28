@@ -6,7 +6,7 @@
 /*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 13:37:16 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/27 15:26:48 by cbrill           ###   ########.fr       */
+/*   Updated: 2018/09/27 17:21:30 by cbrill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int	is_radix(char c, unsigned int base)
 {
 	if (base <= 10)
 		return (c >= '0' && c <= '0' + (char)base);
-	return ((c >= '0' && c <= '9') || (c >= 'A' && c <= ('A' + (char)base - 10)));
+	return ((c >= '0' && c <= '9')
+		|| (c >= 'A' && c <= ('A' + (char)base - 10)));
 }
 
 /*
@@ -24,11 +25,12 @@ static int	is_radix(char c, unsigned int base)
 **	If I find a negative sign, you get a negative number. No bullshit.
 **	Eats until a character inappropriate for the given base (or NULL) is found.
 */
-int	ft_atoib(char *str, const int base)
+
+int			ft_atoib(char *str, const int base)
 {
-	int	value;
-	int	sign;
-	char x;
+	int		value;
+	int		sign;
+	char	x;
 
 	value = 0;
 	sign = 1;
