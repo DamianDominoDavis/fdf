@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+         #
+#    By: damiandavis <damiandavis@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/01 19:50:07 by cbrill            #+#    #+#              #
-#    Updated: 2018/09/14 17:21:31 by cbrill           ###   ########.fr        #
+#    Updated: 2018/10/01 16:25:18 by damiandavis      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ $(NAME): $(OBJS)
 	@ranlib $(NAME)
 
 clean:
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@rm -rf $(NAME)

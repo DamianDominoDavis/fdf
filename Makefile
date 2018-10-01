@@ -45,7 +45,7 @@ $(NAME): $(OBJS)
 
 clean:
 	@make -C $(FT) clean
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@make -C $(FT) fclean
