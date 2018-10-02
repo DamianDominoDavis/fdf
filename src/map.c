@@ -33,11 +33,13 @@ static int	map_size(t_vmap *map, char *path)
 	if (1 != get_next_line(fd, &line))
 		return (nope("map_size: can't read file (empty?)", -1));
 	map->cols = ft_wordcount(line, ' ');
+	free(line);
 	map->rows = 1;
 	while (1 == get_next_line(fd, &line))
 	{
 		if (map->cols != (int)ft_wordcount(line, ' '))
 			return (nope("map_size: file format error", -1));
+		free(line);
 		map->rows++;
 	}
 	map->scale = K_SCALE;
@@ -61,7 +63,9 @@ static void	splint(t_vmap *map, int row, char **strs)
 			v->c = ft_atoib(ft_strchr(strs[i], 'x') + 1, 16);
 		else
 			v->c = K_WHITE;
+		free(strs[i]);
 	}
+	free(strs);
 }
 
 int			map_create(t_vmap *map, char *path)
@@ -85,6 +89,7 @@ int			map_create(t_vmap *map, char *path)
 	{
 		get_next_line(fd, &line);
 		splint(map, i, ft_strsplit(line, ' '));
+		free(line);
 	}
 	ft_putendl("map_create: lines read");
 	return (1);
